@@ -86,7 +86,7 @@ function signup($user, $password) {
                                                 $user."@nonamebox.com",
                                                 $user."@nnbox.org"
                                             ),
-                        "objectclass"   => array(
+                        "objectClass"   => array(
                                                 "inetOrgPerson",
                                                 "uidObject",
                                                 "postfixUser"
@@ -97,8 +97,10 @@ function signup($user, $password) {
                                                 $user
                                             )
                         );
-            // TODO: Fix the info array.
-            $add = ldap_add($ldap, $dn, $info);
+
+            if ($add = ldap_add($ldap, $dn, $info)) {
+                echo "You have signed up successfully.";
+            }
         }
         else {
             exit('This user already exists.');
@@ -118,4 +120,6 @@ $password = htmlspecialchars($_POST["password"]);
 login($user, $password);*/
 
 // Sign up
-signup("", "");
+/*$new_user = "";
+$new_password = "";
+signup($new_user, $new_password);*/
