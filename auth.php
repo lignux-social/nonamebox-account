@@ -9,7 +9,7 @@
 function authenticate($user, $password) {
     // check if a user and password are provided
     if(empty($user) || empty($password)) {
-        return false;
+        exit('No user provided.');
     }
 
     // ldap server variables
@@ -34,10 +34,8 @@ function authenticate($user, $password) {
         echo "false";
     }
 
-
-
 }
 
-$test_user = "";
-$test_password = "";
-authenticate($test_user, $test_password);
+$user = htmlspecialchars($_POST["user"]);
+$password = htmlspecialchars($_POST["password"]);
+authenticate($user, $password);
