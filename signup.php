@@ -1,4 +1,63 @@
 <!DOCTYPE html>
+
+<?php
+include_once "includes/functions.php";
+
+function signup($user, $password) {
+    // strip the user
+    $user = strip($user, $password);
+
+    // admin user
+    $ldap = connect();
+    $ldap_manager = "uid=manager,ou=services,dc=nnbox,dc=org";
+    $ldap_password = "";
+
+    $bind = ldap_bind($ldap, $ldap_manager, $ldap_password);
+
+    if ($bind) {
+        // we check if the user exists
+        $filter = "(uid=".$user.")";
+        $result = ldap_search($ldap,PEOPLE, $filter);
+        $entries = ldap_get_entries($ldap, $result);
+
+        if (count($entries, COUNT_RECURSIVE) == 1) {
+            $dn = "cn=".$user.",ou=people,dc=nnbox,dc=org";
+            $info = array(
+                "cn"            => $user,
+                "mail"          => $user."@nonamebox.org",
+                "maildrop"      => array(
+                    $user."@nonamebox.com",
+                    $user."@nnbox.org"
+                ),
+                "objectClass"   => array(
+                    "inetOrgPerson",
+                    "uidObject",
+                    "postfixUser"
+                ),
+                "userPassword"  => '{crypt}'.crypt($password),
+                "uid"           => array(
+                    $user."@nonamebox.org",
+                    $user
+                )
+            );
+
+            if ($add = ldap_add($ldap, $dn, $info)) {
+                echo "You have signed up successfully.";
+            }
+        }
+        else {
+            exit('This user already exists.');
+        }
+
+        ldap_close($ldap);
+    }
+    else {
+        echo "Couldn't bind to the LDAP server.";
+        ldap_close($ldap);
+    }
+}
+
+?>
 <html>
   <head>
     <meta charset="utf-8">

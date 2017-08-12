@@ -18,7 +18,22 @@ function connect() {
 
 }
 
-function signup($user, $password) {
+function strip($user, $password) {
+    // check if a user and password are provided
+    if(empty($user) || empty($password)) {
+        exit('No user provided.');
+    }
+
+    // strip user
+    if (strpos($user, "@") !== false) {
+        $split = explode("@", $user);
+        $user = $split[0];
+    }
+
+    return $user;
+}
+
+/*function signup($user, $password) {
     // check if a user and password are provided
     if(empty($user) || empty($password)) {
         exit('No user provided.');
@@ -78,7 +93,7 @@ function signup($user, $password) {
         echo "Couldn't bind to the LDAP server.";
         ldap_close($ldap);
     }
-}
+}*/
 
 function password($old_pass, $new_pass, $new_pass_repeat) {
     // check if passwords are provided

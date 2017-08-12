@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 
 <?php
-include "includes/conn.php";
+include_once "includes/functions.php";
 
 function login($user, $password) {
-    // check if a user and password are provided
-    if(empty($user) || empty($password)) {
-        exit('No user provided.');
-    }
-
-    // strip user
-    if (strpos($user, "@") !== false) {
-        $split = explode("@", $user);
-        $user = $split[0];
-    }
+    // strip the user
+    $user = strip($user, $password);
 
     // bind
     $ldap = connect();
