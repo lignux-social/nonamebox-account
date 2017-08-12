@@ -114,12 +114,19 @@ function signup($user, $password) {
     }
 }
 
-// Login
-/*$user = htmlspecialchars($_POST["user"]);
-$password = htmlspecialchars($_POST["password"]);
-login($user, $password);*/
+// check origin and run functiond
 
-// Sign up
-/*$new_user = "";
-$new_password = "";
-signup($new_user, $new_password);*/
+// sign up
+if (!strpos("signup.php", $_SERVER['HTTP_REFERER'])) {
+    $new_user = htmlspecialchars($_POST["new_user"]);
+    $new_password = htmlspecialchars($_POST["new_password"]);
+    signup($new_user, $new_password);
+}
+
+// login
+else if (!strpos("login.php", $_SERVER['HTTP_REFERER'])) {
+    $user = htmlspecialchars($_POST["user"]);
+    $password = htmlspecialchars($_POST["password"]);
+    login($user, $password);
+}
+
