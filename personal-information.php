@@ -91,15 +91,5 @@
     </footer>
 
     <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <?php /*
-
-    <script src="/assets/big-picture/js/jquery.poptrox.min.js" type="text/javascript" ></script>
-    <script src="/assets/big-picture/js/jquery.scrolly.min.js" type="text/javascript" ></script>
-    <script src="/assets/big-picture/js/jquery.scrollex.min.js" type="text/javascript" ></script>
-    <script src="/assets/big-picture/js/skel.min.js" type="text/javascript" ></script>
-    <script src="/assets/big-picture/js/util.js" type="text/javascript" ></script>
-    <script src="/assets/big-picture/js/main.js" type="text/javascript" ></script>
-
-    */ ?>
   </body>
 </html>

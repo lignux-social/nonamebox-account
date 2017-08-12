@@ -74,3 +74,9 @@ form input[type="text"]:focus, form input[type="email"]:focus, form input[type="
   border-color: #adcc63;
 }
 /* CONTENT FIN */
+
+/* LOGIN INI */
+form#login {
+  margin-top: 25px;
+}
+/* LOGIN FIN */
