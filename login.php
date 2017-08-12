@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login | NoNameBox</title>
-    <link href="/assets/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-    <link href="/assets/big-picture/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link href="/assets/big-picture/css/main.css" type="text/css" rel="stylesheet" />
-    <link href="/assets/big-picture/css/nnb_custom.css" type="text/css" rel="stylesheet" />
-    <link href="/assets/css/custom.css" type="text/css" rel="stylesheet" />
+    <link href="assets/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="assets/big-picture/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="assets/big-picture/css/main.css" type="text/css" rel="stylesheet" />
+    <link href="assets/big-picture/css/nnb_custom.css" type="text/css" rel="stylesheet" />
+    <link href="assets/css/custom.css" type="text/css" rel="stylesheet" />
 
   </head>
   <body>
     <header id="header"><div class="clearfix">
-      <h1 id="logo"><a href="/"> <img src="/assets/img/gus_nnblogo.png" alt="No Name Box" class="header-logo"></a></h1>
+      <h1 id="logo"><a href="/"> <img src="assets/img/gus_nnblogo.png" alt="No Name Box" class="header-logo"></a></h1>
       </div>
       <nav id="nav">
           <ul>
@@ -57,6 +57,6 @@
       </ul>
     </footer>
 
-    <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
   </body>
 </html>
