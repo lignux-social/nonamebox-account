@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aniol
- * Date: 8/11/17
- * Time: 4:30 PM
- */
 
 // Global constants
 define("HOST", "chase.nnbox.org");
@@ -41,14 +35,17 @@ function login($user, $password) {
     $ldap_user = "cn=".$user.",ou=people,dc=nnbox,dc=org";
     $bind = ldap_bind($ldap, $ldap_user, $password);
 
+    // login and close connection
     if ($bind) {
-        echo "true";
+        session_start();
+        $_SESSION["user"] = $user;
         ldap_close($ldap);
-
+        return true;
     }
     else {
         echo "Couldn't bind to the LDAP server.";
         ldap_close($ldap);
+        return false;
     }
 }
 
@@ -114,7 +111,38 @@ function signup($user, $password) {
     }
 }
 
-// check origin and run functiond
+function password($old_pass, $new_pass, $new_pass_repeat) {
+    // check if passwords are provided
+    if (empty($old_pass) || empty($new_pass) || empty($new_pass_repeat)) {
+        exit('No passwords provided.');
+    }
+
+    session_start();
+    $user = "cn=".$_SESSION["user"].",ou=people,dc=nnbox,dc=org";
+    $ldap = connect();
+
+    $bind = ldap_bind($ldap, $user, $old_pass);
+
+    if ($bind) {
+        if ($new_pass == $new_pass_repeat) {
+            $info = array("userPassword" => '{crypt}'.crypt($new_pass));
+
+            if ($modify = ldap_modify($ldap, $user, $info)) {
+                echo "Your password has been changed.";
+            }
+        }
+        else {
+            echo "Your passwords don't match.";
+        }
+
+    }
+    else {
+        echo "Current password is wrong.";
+        ldap_close($ldap);
+    }
+}
+
+// check origin and run functions
 
 // sign up
 if (strpos($_SERVER['HTTP_REFERER'], "signup.php") !== false) {
@@ -129,4 +157,13 @@ else if (strpos($_SERVER['HTTP_REFERER'], "login.php") !== false) {
     $password = htmlspecialchars($_POST["password"]);
     login($user, $password);
 }
+
+// password
+else if (strpos($_SERVER['HTTP_REFERER'], "password.php") !== false) {
+    $old_pass = htmlspecialchars($_POST["old_pass"]);
+    $new_pass = htmlspecialchars($_POST["new_pass"]);
+    $new_pass_repeat = htmlspecialchars($_POST["new_pass_repeat"]);
+    password($old_pass, $new_pass, $new_pass_repeat);
+}
+
 
