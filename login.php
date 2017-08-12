@@ -60,26 +60,3 @@
     <script src="/assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
   </body>
 </html>
-
-
-<!DOCTYPE html>
-
-<?php
-/**
- * Created by PhpStorm.
- * User: aniol
- * Date: 8/11/17
- * Time: 5:30 PM
- */
-?>
-
-<html>
-    <head>
-        <title>Log in NoNameBox</title>
-        <meta charset="UTF-8">
-    </head>
-
-    <body>
-    </body>
-
-</html>
