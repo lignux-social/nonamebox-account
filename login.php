@@ -1,4 +1,47 @@
 <!DOCTYPE html>
+
+<?php
+include "includes/conn.php";
+
+function login($user, $password) {
+    // check if a user and password are provided
+    if(empty($user) || empty($password)) {
+        exit('No user provided.');
+    }
+
+    // strip user
+    if (strpos($user, "@") !== false) {
+        $split = explode("@", $user);
+        $user = $split[0];
+    }
+
+    // bind
+    $ldap = connect();
+    $ldap_user = "cn=".$user.",ou=people,dc=nnbox,dc=org";
+    $bind = ldap_bind($ldap, $ldap_user, $password);
+
+    // login and close connection
+    if ($bind) {
+        $_SESSION["user"] = $user;
+        ldap_close($ldap);
+        return true;
+    }
+    else {
+        echo "Couldn't bind to the LDAP server.";
+        ldap_close($ldap);
+        return false;
+    }
+}
+
+// check if the form has run
+if (isset($_POST["user"])) {
+    $user = htmlspecialchars($_POST["user"]);
+    $password = htmlspecialchars($_POST["password"]);
+    login($user, $password);
+}
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -31,7 +74,7 @@
           <div class="col-md-8">
             <h1>Account Manager</h1>
             <h2>Login</h2>
-            <form method="post" action="includes/auth.php" id="login" name="login">
+            <form method="post" action="login.php" id="login" name="login">
               <div class="form-group">
                   <label><strong>User:</strong></label>
                   <input type="text" name="user" required>

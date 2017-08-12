@@ -1,13 +1,13 @@
 <?php
-
-// Global constants
-define("HOST", "chase.nnbox.org");
-define("PORT", 389);
-define("PEOPLE", "ou=people,dc=nnbox,dc=org");
+session_start();
 
 function connect() {
+    // ldap variables
+    $host = "chase.nnbox.org";
+    $port = 389;
+
     // connect
-    $ldap = ldap_connect(HOST, PORT);
+    $ldap = ldap_connect($host, $port);
 
     // configure ldap params
     ldap_set_option($ldap,LDAP_OPT_PROTOCOL_VERSION,3);
@@ -16,37 +16,6 @@ function connect() {
 
     return $ldap;
 
-}
-
-function login($user, $password) {
-    // check if a user and password are provided
-    if(empty($user) || empty($password)) {
-        exit('No user provided.');
-    }
-
-    // strip user
-    if (strpos($user, "@") !== false) {
-        $split = explode("@", $user);
-        $user = $split[0];
-    }
-
-    // bind
-    $ldap = connect();
-    $ldap_user = "cn=".$user.",ou=people,dc=nnbox,dc=org";
-    $bind = ldap_bind($ldap, $ldap_user, $password);
-
-    // login and close connection
-    if ($bind) {
-        session_start();
-        $_SESSION["user"] = $user;
-        ldap_close($ldap);
-        return true;
-    }
-    else {
-        echo "Couldn't bind to the LDAP server.";
-        ldap_close($ldap);
-        return false;
-    }
 }
 
 function signup($user, $password) {
@@ -143,7 +112,7 @@ function password($old_pass, $new_pass, $new_pass_repeat) {
 }
 
 // check origin and run functions
-
+/*
 // sign up
 if (strpos($_SERVER['HTTP_REFERER'], "signup.php") !== false) {
     $new_user = htmlspecialchars($_POST["new_user"]);
@@ -164,6 +133,6 @@ else if (strpos($_SERVER['HTTP_REFERER'], "password.php") !== false) {
     $new_pass = htmlspecialchars($_POST["new_pass"]);
     $new_pass_repeat = htmlspecialchars($_POST["new_pass_repeat"]);
     password($old_pass, $new_pass, $new_pass_repeat);
-}
+}*/
 
 
