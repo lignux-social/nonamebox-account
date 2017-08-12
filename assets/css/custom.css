@@ -1,0 +1,76 @@
+body::before {
+  animation: none !important;
+}
+
+body>.container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  min-height: 75vh;
+  background: none;
+}
+
+.fa {
+  margin-right: 10px;
+}
+
+header#header,
+#header h1 {
+  height: auto;
+  min-height: 3.2em;
+}
+
+/* SIDEBAR MENÚ INI */
+.nav {
+  display: block;
+  margin-bottom: 5rem;
+}
+
+.nav .nav-item a{
+  color: #39454b;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.nav .nav-item a:hover{
+  color: #7ba025;
+  background-color: #eee;
+}
+
+.nav .nav-item .active {
+  background-color: #7ba025;
+}
+
+.nav .nav-item .active:hover {
+  color: #fff;
+  background-color: #adcc63;
+}
+
+/* SIDEBAR MENÚ FIN */
+
+/* CONTENT INI */
+.content .row {
+  padding-top: 3rem;
+}
+
+.content .col-md-9,
+.content .col-md-3  {
+  padding-top: 1rem;
+}
+
+input {
+  padding: 0.45em, 0.75em;
+}
+
+input.nnb_submit {
+  border-radius: 5px;
+  background-color: #7ba025;
+}
+
+input.nnb_submit:hover {
+  background-color: #adcc63;
+}
+form input[type="text"]:focus, form input[type="email"]:focus, form input[type="password"]:focus, form select:focus, form textarea:focus {
+  border-color: #adcc63;
+}
+/* CONTENT FIN */
