@@ -16,7 +16,7 @@
     </head>
 
     <body>
-        <form method="post" action="auth.php" id="login" name="login">
+        <form method="post" action="includes/auth.php" id="login" name="login">
             <h5>User:</h5>
             <input type="text" name="user" required>
 

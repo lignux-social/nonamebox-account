@@ -31,7 +31,7 @@ function login($user, $password) {
     }
 
     // strip user
-    if (!strpos("@", $user)) {
+    if (strpos($user, "@") !== false) {
         $split = explode("@", $user);
         $user = $split[0];
     }
@@ -59,7 +59,7 @@ function signup($user, $password) {
     }
 
     // strip user
-    if (!strpos("@", $user)) {
+    if (strpos($user, "@") !== false) {
         $split = explode("@", $user);
         $user = $split[0];
     }
@@ -117,14 +117,14 @@ function signup($user, $password) {
 // check origin and run functiond
 
 // sign up
-if (!strpos("signup.php", $_SERVER['HTTP_REFERER'])) {
+if (strpos($_SERVER['HTTP_REFERER'], "signup.php") !== false) {
     $new_user = htmlspecialchars($_POST["new_user"]);
     $new_password = htmlspecialchars($_POST["new_password"]);
     signup($new_user, $new_password);
 }
 
 // login
-else if (!strpos("login.php", $_SERVER['HTTP_REFERER'])) {
+else if (strpos($_SERVER['HTTP_REFERER'], "login.php") !== false) {
     $user = htmlspecialchars($_POST["user"]);
     $password = htmlspecialchars($_POST["password"]);
     login($user, $password);
