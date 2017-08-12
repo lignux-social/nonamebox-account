@@ -7,6 +7,8 @@ function signup($user, $password) {
     // strip the user
     $user = strip($user, $password);
 
+    $people = "ou=people,dc=nnbox,dc=org";
+
     // admin user
     $ldap = connect();
     $ldap_manager = "uid=manager,ou=services,dc=nnbox,dc=org";
@@ -17,7 +19,7 @@ function signup($user, $password) {
     if ($bind) {
         // we check if the user exists
         $filter = "(uid=".$user.")";
-        $result = ldap_search($ldap,PEOPLE, $filter);
+        $result = ldap_search($ldap, $people, $filter);
         $entries = ldap_get_entries($ldap, $result);
 
         if (count($entries, COUNT_RECURSIVE) == 1) {
@@ -46,7 +48,7 @@ function signup($user, $password) {
             }
         }
         else {
-            exit('This user already exists.');
+            echo "This user already exists.";
         }
 
         ldap_close($ldap);
@@ -55,6 +57,13 @@ function signup($user, $password) {
         echo "Couldn't bind to the LDAP server.";
         ldap_close($ldap);
     }
+}
+
+// check if the form has run
+if (isset($_POST["new_user"])) {
+    $new_user = htmlspecialchars($_POST["new_user"]);
+    $new_password = htmlspecialchars($_POST["new_password"]);
+    signup($new_user, $new_password);
 }
 
 ?>
@@ -90,7 +99,7 @@ function signup($user, $password) {
           <div class="col-md-8">
             <h1>Account Manager</h1>
             <h2>Sign up now!</h2>
-            <form method="post" action="includes/auth.php" id="signup" name="signup">
+            <form method="post" action="signup.php" id="signup" name="signup">
               <div class="form-group">
                   <label><strong>User:</strong></label>
                   <input type="text" name="new_user" required>

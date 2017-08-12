@@ -1,4 +1,48 @@
 <!DOCTYPE html>
+
+<?php
+include_once "includes/functions.php";
+
+function password($old_pass, $new_pass, $new_pass_repeat) {
+    // check if passwords are provided
+    if (empty($old_pass) || empty($new_pass) || empty($new_pass_repeat)) {
+        exit('No passwords provided.');
+    }
+
+    $user = "cn=".$_SESSION["user"].",ou=people,dc=nnbox,dc=org";
+    $ldap = connect();
+
+    $bind = ldap_bind($ldap, $user, $old_pass);
+
+    if ($bind) {
+        if ($new_pass == $new_pass_repeat) {
+            $info = array("userPassword" => '{crypt}'.crypt($new_pass));
+
+            if ($modify = ldap_modify($ldap, $user, $info)) {
+                echo "Your password has been changed.";
+            }
+        }
+        else {
+            echo "Passwords don't match.";
+        }
+
+    }
+    else {
+        echo "Current password is wrong.";
+        ldap_close($ldap);
+    }
+}
+
+// check if the form has run
+if (isset($_POST["new_pass"])) {
+    $old_pass = htmlspecialchars($_POST["old_pass"]);
+    $new_pass = htmlspecialchars($_POST["new_pass"]);
+    $new_pass_repeat = htmlspecialchars($_POST["new_pass_repeat"]);
+    password($old_pass, $new_pass, $new_pass_repeat);
+}
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -37,7 +81,7 @@
               <p>Here you can modify information on your account. All services on NoNameBox (mail, cloud...) use the same user information, password and login. So you only have to remember one password!</p>
               <hr>
               <div class="container content">
-                <form action="includes/auth.php" method="post">
+                <form action="password.php" method="post">
 
                     <div class="form-group">
                         <div class="row">
