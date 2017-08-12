@@ -47,7 +47,7 @@
 
 
               <div class="form-group">
-              <input type="submit" value="Login" class="btn btn-submit nnb_submit">
+              <input type="submit" value="Sign Up" class="btn btn-submit nnb_submit">
             </div>
             </form>
           </div>
