@@ -14,12 +14,13 @@ function login($user, $password) {
 
     // login and close connection
     if ($bind) {
+        $_SESSION["loggedin"] = true;
         $_SESSION["user"] = $user;
         ldap_close($ldap);
         return true;
     }
     else {
-        echo "Couldn't bind to the LDAP server.";
+        echo "Wrong username or password.";
         ldap_close($ldap);
         return false;
     }
