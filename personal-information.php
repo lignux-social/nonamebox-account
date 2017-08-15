@@ -1,4 +1,64 @@
 <!DOCTYPE html>
+
+<?php
+function personal($display, $given, $sn) {
+    // check if passwords are provided
+    if (empty($display) && empty($given) && empty($sn)) {
+        exit('No new information provided.');
+    }
+    // user CN
+    $user = $_SESSION["user"];
+    $cn = "cn=".$user.",ou=people,dc=nnbox,dc=org";
+
+    // admin user
+    $ldap = connect();
+    $ldap_manager = "uid=manager,ou=services,dc=nnbox,dc=org";
+    $ldap_password = "";
+
+    $bind = ldap_bind($ldap, $ldap_manager, $ldap_password);
+
+    if ($bind) {
+        $info = array(
+                "cn" => $user,
+                "displayName" => $display,
+                "givenName" => $given,
+                "sn" => $sn
+        );
+
+        if ($modify = ldap_modify($ldap, $cn, $info)) {
+            echo "The information has been updated.";
+        }
+        else {
+            echo "An unexpected error occurred.";
+        }
+
+    }
+    else {
+        echo "Couldn't bind to the LDAP server.";
+    }
+}
+// check updated variables
+$display = "";
+$given = "";
+$sn = "";
+
+if (isset($_POST["display"])) {
+    $display = $_POST["display"];
+}
+
+if (isset($_POST["given"])) {
+    $display = $_POST["given"];
+}
+
+if (isset($_POST["sn"])) {
+    $display = $_POST["sn"];
+}
+
+// call the function
+personal($display, $given, $sn);
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">
