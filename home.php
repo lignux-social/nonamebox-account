@@ -45,7 +45,7 @@ if (!$_SESSION["loggedin"]) {
           </div>
           <div class="col-md-8">
             <h1>Account Manager</h1>
-            <h2>Personal Information</h2>
+            <h2>Home</h2>
             <div class="row">
               <p>Here you can modify information on your account. All services on NoNameBox (mail, cloud...) use the same user information, password and login. So you only have to remember one password!</p>
               <hr>
