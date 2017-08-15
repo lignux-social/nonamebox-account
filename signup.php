@@ -11,10 +11,8 @@ function signup($user, $password) {
 
     // admin user
     $ldap = connect();
-    $ldap_manager = "uid=manager,ou=services,dc=nnbox,dc=org";
-    $ldap_password = "";
 
-    $bind = ldap_bind($ldap, $ldap_manager, $ldap_password);
+    $bind = superbind($ldap);
 
     if ($bind) {
         // we check if the user exists
@@ -51,12 +49,13 @@ function signup($user, $password) {
             echo "This user already exists.";
         }
 
-        ldap_close($ldap);
     }
     else {
         echo "Couldn't bind to the LDAP server.";
-        ldap_close($ldap);
+
     }
+
+    ldap_close($ldap);
 }
 
 // check if the form has run

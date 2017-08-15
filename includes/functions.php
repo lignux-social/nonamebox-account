@@ -33,4 +33,14 @@ function strip($user, $password) {
     return $user;
 }
 
+function superbind($ldap) {
+    // admin user
+    $ldap_manager = "uid=manager,ou=services,dc=nnbox,dc=org";
+    $ldap_password = "";
+
+    $bind = ldap_bind($ldap, $ldap_manager, $ldap_password);
+
+    return $bind;
+}
+
 

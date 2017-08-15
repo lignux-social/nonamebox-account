@@ -33,8 +33,9 @@ function password($old_pass, $new_pass, $new_pass_repeat) {
     }
     else {
         echo "Current password is wrong.";
-        ldap_close($ldap);
     }
+
+    ldap_close($ldap);
 }
 
 // check if the form has run

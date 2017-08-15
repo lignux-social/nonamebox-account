@@ -7,29 +7,16 @@ if (!$_SESSION["loggedin"]) {
     header('Location: login.php');
 }
 
-function personal($display, $given, $sn) {
-    // check if passwords are provided
-    if (empty($display) && empty($given) && empty($sn)) {
-        exit('No new information provided.');
-    }
+function display($display) {
     // user CN
     $user = $_SESSION["user"];
     $cn = "cn=".$user.",ou=people,dc=nnbox,dc=org";
 
-    // admin user
     $ldap = connect();
-    $ldap_manager = "uid=manager,ou=services,dc=nnbox,dc=org";
-    $ldap_password = "";
-
-    $bind = ldap_bind($ldap, $ldap_manager, $ldap_password);
+    $bind = superbind($ldap);
 
     if ($bind) {
-        $info = array(
-                "cn" => $user,
-                "displayName" => $display,
-                "givenName" => $given,
-                "sn" => $sn
-        );
+        $info = array("displayName" => $display);
 
         if ($modify = ldap_modify($ldap, $cn, $info)) {
             echo "The information has been updated.";
@@ -42,26 +29,80 @@ function personal($display, $given, $sn) {
     else {
         echo "Couldn't bind to the LDAP server.";
     }
-}
-// check updated variables
-$display = "";
-$given = "";
-$sn = "";
 
-if (isset($_POST["display"])) {
+    ldap_close($ldap);
+
+}
+
+function given($given) {
+    // user CN
+    $user = $_SESSION["user"];
+    $cn = "cn=".$user.",ou=people,dc=nnbox,dc=org";
+
+    $ldap = connect();
+    $bind = superbind($ldap);
+
+    if ($bind) {
+        $info = array("givenName" => $given);
+
+        if ($modify = ldap_modify($ldap, $cn, $info)) {
+            echo "The information has been updated.";
+        }
+        else {
+            echo "An unexpected error occurred.";
+        }
+
+    }
+    else {
+        echo "Couldn't bind to the LDAP server.";
+    }
+
+    ldap_close($ldap);
+
+}
+
+function sn($sn) {
+    // user CN
+    $user = $_SESSION["user"];
+    $cn = "cn=".$user.",ou=people,dc=nnbox,dc=org";
+
+    $ldap = connect();
+    $bind = superbind($ldap);
+
+    if ($bind) {
+        $info = array("sn" => $sn);
+
+        if ($modify = ldap_modify($ldap, $cn, $info)) {
+            echo "The information has been updated.";
+        }
+        else {
+            echo "An unexpected error occurred.";
+        }
+
+    }
+    else {
+        echo "Couldn't bind to the LDAP server.";
+    }
+
+    ldap_close($ldap);
+
+}
+
+// check post
+if (!empty($_POST["display"])) {
     $display = $_POST["display"];
+    display($display);
 }
 
-if (isset($_POST["given"])) {
-    $display = $_POST["given"];
+if (!empty($_POST["given"])) {
+    $given = $_POST["given"];
+    given($given);
 }
 
-if (isset($_POST["sn"])) {
-    $display = $_POST["sn"];
+if (!empty($_POST["sn"])) {
+    $sn = $_POST["sn"];
+    display($sn);
 }
-
-// call the function
-personal($display, $given, $sn);
 
 ?>
 
