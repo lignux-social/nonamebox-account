@@ -19,6 +19,18 @@ header#header,
   min-height: 3.2em;
 }
 
+a {
+  color: #7ba025;
+}
+
+a:hover {
+  color: #7ba025;
+}
+
+.error {
+  color: #cc5d5d;
+}
+
 /* SIDEBAR MENÚ INI */
 .nav {
   display: block;
