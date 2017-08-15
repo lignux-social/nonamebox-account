@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 
 <?php
+
+if (!$_SESSION["loggedin"]) {
+    header('Location: login.php');
+}
+
 function personal($display, $given, $sn) {
     // check if passwords are provided
     if (empty($display) && empty($given) && empty($sn)) {
@@ -97,7 +102,7 @@ personal($display, $given, $sn);
               <p>Here you can modify information on your account. All services on NoNameBox (mail, cloud...) use the same user information, password and login. So you only have to remember one password!</p>
               <hr>
               <div class="container content">
-                <form action="#" method="post">
+                <form action="personal-information.php" method="post">
 
                   <div class="form-group">
                       <div class="row">

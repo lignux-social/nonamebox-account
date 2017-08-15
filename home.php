@@ -1,9 +1,14 @@
+<!DOCTYPE html>
+
 <?php
-if (  !$_SESSION["loggedin"])
-  header('Location: /login.php');
+include_once "includes/functions.php";
+
+if (!$_SESSION["loggedin"]) {
+    header('Location: login.php');
+}
+
 ?>
 
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<?php
-if (!$_SESSION["loggedin"])
-  header('Location: /login.php');
-?>
-
 
 <?php
 include_once "includes/functions.php";
+
+if (!$_SESSION["loggedin"]) {
+    header('Location: login.php');
+}
 
 function password($old_pass, $new_pass, $new_pass_repeat) {
     // check if passwords are provided
