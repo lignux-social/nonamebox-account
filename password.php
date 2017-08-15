@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+if (!$_SESSION["loggedin"])
+  header('Location: /login.php');
+?>
+
 
 <?php
 include_once "includes/functions.php";

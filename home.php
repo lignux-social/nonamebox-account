@@ -1,3 +1,8 @@
+<?php
+if (  !$_SESSION["loggedin"])
+  header('Location: /login.php');
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
