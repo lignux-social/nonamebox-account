@@ -2,6 +2,7 @@
 
 <?php
 include_once "includes/functions.php";
+$_SESSION["last_page"] = "signup.php";
 
 function signup($user, $password) {
     // strip the user
@@ -46,16 +47,19 @@ function signup($user, $password) {
             }
         }
         else {
-            echo "This user already exists.";
+            $_SESSION["error"] =  "This user already exists.";
         }
 
     }
     else {
-        echo "Couldn't bind to the LDAP server.";
+        $_SESSION["error"] =  "Couldn't bind to the LDAP server.";
 
     }
 
     ldap_close($ldap);
+    if (!empty($_SESSION["error"])){
+      header('Location: error.php');
+    }
 }
 
 // check if the form has run
@@ -79,17 +83,7 @@ if (isset($_POST["new_user"])) {
 
   </head>
   <body>
-    <header id="header"><div class="clearfix">
-      <h1 id="logo"><a href="/"> <img src="assets/img/gus_nnblogo.png" alt="No Name Box" class="header-logo"></a></h1>
-      </div>
-      <nav id="nav">
-          <ul>
-              <li><a href="http://nonamebox.org/">Get back to the site</a>
-              <div class="clearfix"></div></li>
-          </ul>
-          <div class="clearfix"></div>
-      </nav>
-    </header>
+    <?php include "includes/header.php" ?>
 
     <div class="container">
       <div class="row">
@@ -123,12 +117,7 @@ if (isset($_POST["new_user"])) {
       </div>
     </div>
 
-    <footer id="footer">
-      <ul class="actions">
-          <li><a href="https://t.me/NoNameBox" class="icon fa-telegram"></a></li>
-          <li><a href="mailto:info@nonamebox.org" class="icon fa-envelope"></a></li>
-      </ul>
-    </footer>
+    <?php include_once "includes/header.php" ?>
 
     <script src="assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
   </body>

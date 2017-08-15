@@ -2,6 +2,7 @@
 
 <?php
 include_once "includes/functions.php";
+$_SESSION["last_page"] = "personal-information.php";
 
 if (!$_SESSION["loggedin"]) {
     header('Location: login.php');
@@ -18,16 +19,17 @@ function display($display) {
     if ($bind) {
         $info = array("displayName" => $display);
 
+        // Segur que funciona? Em sembla que tan si es True com False, la assignació del resultat a $modify es farà satisfactòriament i entrarà al IF.
         if ($modify = ldap_modify($ldap, $cn, $info)) {
-            echo "The information has been updated.";
+            return "The information has been updated.";
         }
         else {
-            echo "An unexpected error occurred.";
+            $_SESSION["error"] =  "An unexpected error occurred.";
         }
 
     }
     else {
-        echo "Couldn't bind to the LDAP server.";
+        $_SESSION["error"] =  "Couldn't bind to the LDAP server.";
     }
 
     ldap_close($ldap);
@@ -46,15 +48,15 @@ function given($given) {
         $info = array("givenName" => $given);
 
         if ($modify = ldap_modify($ldap, $cn, $info)) {
-            echo "The information has been updated.";
+            return "The information has been updated.";
         }
         else {
-            echo "An unexpected error occurred.";
+            $_SESSION["error"] =  "An unexpected error occurred.";
         }
 
     }
     else {
-        echo "Couldn't bind to the LDAP server.";
+        $_SESSION["error"] =  "Couldn't bind to the LDAP server.";
     }
 
     ldap_close($ldap);
@@ -73,36 +75,44 @@ function sn($sn) {
         $info = array("sn" => $sn);
 
         if ($modify = ldap_modify($ldap, $cn, $info)) {
-            echo "The information has been updated.";
+            return "The information has been updated.";
         }
         else {
-            echo "An unexpected error occurred.";
+            $_SESSION["error"] =  "An unexpected error occurred.";
         }
 
     }
     else {
-        echo "Couldn't bind to the LDAP server.";
+        $_SESSION["error"] =  "Couldn't bind to the LDAP server.";
     }
 
     ldap_close($ldap);
 
 }
 
+$success = "";
+
 // check post
 if (!empty($_POST["display"])) {
     $display = $_POST["display"];
-    display($display);
+    $success = display($display);
 }
 
 if (!empty($_POST["given"])) {
     $given = $_POST["given"];
-    given($given);
+    $success = given($given);
 }
 
 if (!empty($_POST["sn"])) {
     $sn = $_POST["sn"];
-    display($sn);
+    $success = display($sn);
 }
+
+if (!empty($_SESSION["error"])){
+  header('Location: error.php');
+}
+
+echo $success;
 
 ?>
 
@@ -119,14 +129,7 @@ if (!empty($_POST["sn"])) {
 
   </head>
   <body>
-    <header id="header">
-      <h1 id="logo"><a href="/"> <img src="assets/img/gus_nnblogo.png" alt="No Name Box" class="header-logo"></a></h1>
-      <nav id="nav">
-          <ul>
-              <li><a href="http://nonamebox.org/">Get back to the site</a></li>
-          </ul>
-      </nav>
-    </header>
+    <?php include "includes/header.php" ?>
 
     <div class="container">
       <div class="row">
@@ -190,12 +193,7 @@ if (!empty($_POST["sn"])) {
       </div>
     </div>
 
-    <footer id="footer">
-      <ul class="actions">
-          <li><a href="https://t.me/NoNameBox" class="icon fa-telegram"></a></li>
-          <li><a href="mailto:info@nonamebox.org" class="icon fa-envelope"></a></li>
-      </ul>
-    </footer>
+    <?php include_once "includes/header.php" ?>
 
     <script src="assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
   </body>

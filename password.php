@@ -2,6 +2,7 @@
 
 <?php
 include_once "includes/functions.php";
+$_SESSION["last_page"] = "password.php";
 
 if (!$_SESSION["loggedin"]) {
     header('Location: login.php');
@@ -27,15 +28,18 @@ function password($old_pass, $new_pass, $new_pass_repeat) {
             }
         }
         else {
-            echo "Passwords don't match.";
+            $_SESSION["error"] =  "Passwords don't match.";
         }
 
     }
     else {
-        echo "Current password is wrong.";
+        $_SESSION["error"] =  "Current password is wrong.";
     }
 
     ldap_close($ldap);
+    if (!empty($_SESSION["error"])){
+      header('Location: error.php');
+    }
 }
 
 // check if the form has run
@@ -61,14 +65,7 @@ if (isset($_POST["new_pass"])) {
 
   </head>
   <body>
-    <header id="header">
-      <h1 id="logo"><a href="/"> <img src="assets/img/gus_nnblogo.png" alt="No Name Box" class="header-logo"></a></h1>
-      <nav id="nav">
-          <ul>
-              <li><a href="http://nonamebox.org/">Get back to the site</a></li>
-          </ul>
-      </nav>
-    </header>
+    <?php include "includes/header.php" ?>
 
     <div class="container">
       <div class="row">
@@ -132,12 +129,7 @@ if (isset($_POST["new_pass"])) {
       </div>
     </div>
 
-    <footer id="footer">
-      <ul class="actions">
-          <li><a href="https://t.me/NoNameBox" class="icon fa-telegram"></a></li>
-          <li><a href="mailto:info@nonamebox.org" class="icon fa-envelope"></a></li>
-      </ul>
-    </footer>
+    <?php include_once "includes/header.php" ?>
 
     <script src="assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
   </body>

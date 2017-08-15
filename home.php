@@ -22,17 +22,7 @@ if (!$_SESSION["loggedin"]) {
 
   </head>
   <body>
-    <header id="header"><div class="clearfix">
-      <h1 id="logo"><a href="/"> <img src="assets/img/gus_nnblogo.png" alt="No Name Box" class="header-logo"></a></h1>
-      </div>
-      <nav id="nav">
-          <ul>
-              <li><a href="http://nonamebox.org/">Get back to the site</a>
-              <div class="clearfix"></div></li>
-          </ul>
-          <div class="clearfix"></div>
-      </nav>
-    </header>
+    <?php include "includes/header.php" ?>
 
     <div class="container">
       <div class="row">
@@ -80,12 +70,7 @@ if (!$_SESSION["loggedin"]) {
       </div>
     </div>
 
-    <footer id="footer">
-      <ul class="actions">
-          <li><a href="https://t.me/NoNameBox" class="icon fa-telegram"></a></li>
-          <li><a href="mailto:info@nonamebox.org" class="icon fa-envelope"></a></li>
-      </ul>
-    </footer>
+    <?php include_once "includes/header.php" ?>
 
     <script src="assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
   </body>
