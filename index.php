@@ -1,2 +1,2 @@
-<?php include "login.php";
+<?php include "home.php";
 ?>
