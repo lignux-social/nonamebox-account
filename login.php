@@ -17,12 +17,11 @@ function login($user, $password) {
         $_SESSION["loggedin"] = true;
         $_SESSION["user"] = $user;
         ldap_close($ldap);
-        return true;
+        header('Location: home.php');
     }
     else {
         echo "Wrong username or password.";
         ldap_close($ldap);
-        return false;
     }
 }
 
@@ -75,6 +74,9 @@ if (isset($_POST["user"])) {
               <div class="form-group">
                   <label><strong>Password:</strong></label>
                   <input type="password" name="password" required>
+              </div>
+              <div class="form-group">
+                <p>Don't have an account? <a href="signup.php" title="Sign up">Sign up here.</a></p>
               </div>
               <div class="form-group">
               <input type="submit" value="Login" class="btn btn-submit nnb_submit">
