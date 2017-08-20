@@ -1,17 +1,7 @@
 Options +FollowSymLinks -MultiViews -Indexes
 
-DirectoryIndex index.php index.html index.htm
+DirectoryIndex index.php
 
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteBase /
-
-RewriteRule ^home$  ./home.php
-RewriteRule ^login$ ./login.php
-RewriteRule ^signup$ ./signup.php
-RewriteRule ^error$  ./error.php
-RewriteRule ^logout$ ./logout.php
-RewriteRule ^password$ ./password.php
-RewriteRule ^personal-information$ ./personal-information.php
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
