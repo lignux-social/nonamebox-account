@@ -5,3 +5,14 @@ DirectoryIndex index.php
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+Options +FollowSymLinks -MultiViews -Indexes
+
+DirectoryIndex index.php
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Block all direct access for these folders
+RewriteRule ^(\.git)/(.*) error [F]
