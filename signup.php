@@ -2,7 +2,7 @@
 
 <?php
 include_once "includes/functions.php";
-$_SESSION["last_page"] = "signup.php";
+$_SESSION["last_page"] = "signup";
 
 function signup($user, $password) {
     // strip the user
@@ -58,7 +58,7 @@ function signup($user, $password) {
 
     ldap_close($ldap);
     if (!empty($_SESSION["error"])){
-      header('Location: error.php');
+      header('Location: error');
     }
 }
 
@@ -92,7 +92,7 @@ if (isset($_POST["new_user"])) {
           <div class="col-md-8">
             <h1>Account Manager</h1>
             <h2>Sign up now!</h2>
-            <form method="post" action="signup.php" id="signup" name="signup">
+            <form method="post" action="signup" id="signup" name="signup">
               <div class="form-group">
                   <label><strong>User:</strong></label>
                   <input type="text" name="new_user" required>

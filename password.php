@@ -2,10 +2,10 @@
 
 <?php
 include_once "includes/functions.php";
-$_SESSION["last_page"] = "password.php";
+$_SESSION["last_page"] = "password";
 
 if (!$_SESSION["loggedin"]) {
-    header('Location: login.php');
+    header('Location: login');
 }
 
 function password($old_pass, $new_pass, $new_pass_repeat) {
@@ -38,7 +38,7 @@ function password($old_pass, $new_pass, $new_pass_repeat) {
 
     ldap_close($ldap);
     if (!empty($_SESSION["error"])){
-      header('Location: error.php');
+      header('Location: error');
     }
 }
 
@@ -72,8 +72,8 @@ if (isset($_POST["new_pass"])) {
           <div class="col-md-4" >
             <ul class="nav nav-pills nav-stacked nav-bracket">
               <li class="nav-item"><a href="/" title="Home" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-              <li class="nav-item"><a><a href="personal-information.php" title="Home" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i>Personal Information</a></a></li>
-              <li class="nav-item"><a><a href="password.php" title="Home" class="nav-link active"><i class="fa fa-lock" aria-hidden="true"></i>Password</a></a></li>
+              <li class="nav-item"><a><a href="personal-information" title="Home" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i>Personal Information</a></a></li>
+              <li class="nav-item"><a><a href="password" title="Home" class="nav-link active"><i class="fa fa-lock" aria-hidden="true"></i>Password</a></a></li>
             </ul>
           </div>
           <div class="col-md-8">
@@ -83,7 +83,7 @@ if (isset($_POST["new_pass"])) {
               <p>Here you can modify information on your account. All services on NoNameBox (mail, cloud...) use the same user information, password and login. So you only have to remember one password!</p>
               <hr>
               <div class="container content">
-                <form action="password.php" method="post">
+                <form action="password" method="post">
 
                     <div class="form-group">
                         <div class="row">

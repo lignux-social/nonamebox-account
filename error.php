@@ -2,14 +2,14 @@
 include_once "includes/functions.php";
 
 if(empty($_SESSION["error"]) && empty($_SESSION["last_page"]))
-  header('Location: home.php');
+  header('Location: home');
 
 
 if (empty($_SESSION["error"]))
   $_SESSION["error"] = "Ooops! Something wierd just happened, this is embarrassing :/";
 
 if (empty($_SESSION["last_page"]))
-  $_SESSION["last_page"] = "home.php";
+  $_SESSION["last_page"] = "home";
 
 
 ?>

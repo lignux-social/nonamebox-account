@@ -4,7 +4,7 @@
 include_once "includes/functions.php";
 
 if (!$_SESSION["loggedin"]) {
-    header('Location: login.php');
+    header('Location: login');
 }
 
 ?>
@@ -29,8 +29,8 @@ if (!$_SESSION["loggedin"]) {
           <div class="col-md-4" >
             <ul class="nav nav-pills nav-stacked nav-bracket">
               <li class="nav-item"><a href="/" title="Home" class="nav-link active"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-              <li class="nav-item"><a><a href="personal-information.php" title="Home" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i>Personal Information</a></a></li>
-              <li class="nav-item"><a><a href="password.php" title="Home" class="nav-link"><i class="fa fa-lock" aria-hidden="true"></i>Password</a></a></li>
+              <li class="nav-item"><a><a href="personal-information" title="Home" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i>Personal Information</a></a></li>
+              <li class="nav-item"><a><a href="password" title="Home" class="nav-link"><i class="fa fa-lock" aria-hidden="true"></i>Password</a></a></li>
             </ul>
           </div>
           <div class="col-md-8">

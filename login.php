@@ -2,7 +2,7 @@
 
 <?php
 include_once "includes/functions.php";
-$_SESSION["last_page"] = "login.php";
+$_SESSION["last_page"] = "login";
 
 function login($user, $password) {
     // strip the user
@@ -18,12 +18,12 @@ function login($user, $password) {
         $_SESSION["loggedin"] = true;
         $_SESSION["user"] = $user;
         ldap_close($ldap);
-        header('Location: home.php');
+        header('Location: home');
     }
     else {
         $_SESSION["error"] = "Wrong username or password.";
         ldap_close($ldap);
-        header('Location: error.php');
+        header('Location: error');
     }
 }
 
@@ -58,7 +58,7 @@ if (isset($_POST["user"])) {
           <div class="col-md-8">
             <h1>Account Manager</h1>
             <h2>Login</h2>
-            <form method="post" action="login.php" id="login" name="login">
+            <form method="post" action="login" id="login" name="login">
               <div class="form-group">
                   <label><strong>User:</strong></label>
                   <input type="text" name="user" required>
@@ -68,7 +68,7 @@ if (isset($_POST["user"])) {
                   <input type="password" name="password" required>
               </div>
               <div class="form-group">
-                <p>Don't have an account? <a href="signup.php" title="Sign up">Sign up here.</a></p>
+                <p>Don't have an account? <a href="signup" title="Sign up">Sign up here.</a></p>
               </div>
               <div class="form-group">
               <input type="submit" value="Login" class="btn btn-submit nnb_submit">
