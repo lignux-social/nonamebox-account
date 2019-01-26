@@ -7,6 +7,7 @@ $_SESSION["last_page"] = "login";
 function login($user, $password) {
     // strip the user
     $user = strip($user, $password);
+    $password = html_entity_decode($password);
 
     // bind
     $ldap = connect();
