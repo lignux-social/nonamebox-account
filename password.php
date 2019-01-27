@@ -44,9 +44,9 @@ function password($old_pass, $new_pass, $new_pass_repeat) {
 
 // check if the form has run
 if (isset($_POST["new_pass"])) {
-    $old_pass = htmlspecialchars($_POST["old_pass"]);
-    $new_pass = htmlspecialchars($_POST["new_pass"]);
-    $new_pass_repeat = htmlspecialchars($_POST["new_pass_repeat"]);
+    $old_pass = html_entity_decode(htmlspecialchars($_POST["old_pass"]));
+    $new_pass = html_entity_decode(htmlspecialchars($_POST["new_pass"]));
+    $new_pass_repeat = html_entity_decode(htmlspecialchars($_POST["new_pass_repeat"]));
     password($old_pass, $new_pass, $new_pass_repeat);
 }
 
